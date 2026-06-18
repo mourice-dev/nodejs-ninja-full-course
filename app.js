@@ -2,15 +2,21 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const dns = require("dns");
 const mongoose = require("mongoose");
+const Blog = require("./Models/blog.js");
 
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const app = express();
 
 const DBURI =
   "mongodb+srv://nshutikope_db_user:maurice1234@cluster0.js5ufxz.mongodb.net/node-tus?retryWrites=true&w=majority";
 mongoose
   .connect(DBURI)
-  .then((result) => app.listen(3000))
+  .then((result) => {
+    console.log("database connect");
+    app.listen(3000);
+  })
   .catch((err) => console.log(err));
 
 app.set("view engine", "ejs");
@@ -80,6 +86,20 @@ app.get("/about-us", (req, res) => {
 app.get("/blogs/create", (req, res) => {
   res.render("create", { title: "Create" });
 });
+app.get("/add-blog", (req, res) => {
+  const blog = new Blog({
+    title: "new blog1",
+    snippet: "new blog snippet",
+    body: "body of new blog and more info",
+  });
+  blog
+    .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => console.log(err));
+});
+
 app.use((req, res) => {
   res.status(404).render("404", { title: "404" });
 });
