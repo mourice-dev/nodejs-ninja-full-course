@@ -2,10 +2,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partials/header.ejs' ) %>
+  <%- include('../partials/header.ejs' ) %>
 
   <body>
-    <%- include('./partials/nav.ejs') %>
+    <%- include('../partials/nav.ejs') %>
     <h3>Title:<%= blog.title %></h3>
 
     <p>Snippet:<%= blog.snippet %></p>
@@ -17,7 +17,7 @@
       >delete</a
     >
 
-    <%- include('./partials/footer.ejs') %>
+    <%- include('../partials/footer.ejs') %>
     <script>
       const transfac = document.querySelector(".delete");
       transfac.addEventListener("click", (e) => {
