@@ -2,21 +2,28 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const mongoose = require("mongoose");
+
 const app = express();
 
-app.listen(3000);
+const DBURI =
+  "mongodb+srv://nshutikope_db_user:maurice1234@cluster0.js5ufxz.mongodb.net/node-tus?retryWrites=true&w=majority";
+mongoose
+  .connect(DBURI)
+  .then((result) => app.listen(3000))
+  .catch((err) => console.log(err));
 
 app.set("view engine", "ejs");
 app.use(morgan("dev"));
 app.use(express.static("public"));
 
-app.use((req, res, next) => {
-  console.log(req.hostname);
-  console.log(req.url);
-  console.log(req.path);
-  console.log(req.method);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(req.hostname);
+//   console.log(req.url);
+//   console.log(req.path);
+//   console.log(req.method);
+//   next();
+// });
 
 const blogs = [
   {
