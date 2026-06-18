@@ -100,6 +100,21 @@ app.get("/add-blog", (req, res) => {
     .catch((err) => console.log(err));
 });
 
+app.get("/all-blog", (req, res) => {
+  Blog.find()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => console.log(err));
+});
+app.get("/view-blog", (req, res) => {
+  Blog.findById("6a33ecfb76a43bde0855dae7")
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => console.log(err));
+});
+
 app.use((req, res) => {
   res.status(404).render("404", { title: "404" });
 });
